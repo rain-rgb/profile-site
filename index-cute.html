@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的交友小窝</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #0d1424;
+            --panel: rgba(17, 23, 41, 0.85);
+            --text: #e6f1ff;
+            --muted: #9bb0ce;
+            --accent: #59c1ff;
+            --accent-2: #7ef1c8;
+            --accent-3: #ffb347;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Kosugi Maru', 'Space Grotesk', 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at 20% 20%, rgba(89, 193, 255, 0.25), transparent 45%),
+                radial-gradient(circle at 80% 0%, rgba(126, 241, 200, 0.25), transparent 40%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 4rem;
+        }
+
+        .sparkles::before,
+        .sparkles::after {
+            content: '✦';
+            position: absolute;
+            color: rgba(89, 193, 255, 0.35);
+            font-size: 2rem;
+        }
+
+        .sparkles::before {
+            top: 10%;
+            right: 8%;
+        }
+
+        .sparkles::after {
+            bottom: 15%;
+            left: 12%;
+            color: rgba(126, 241, 200, 0.5);
+        }
+
+        header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-emblem {
+            width: 220px;
+            height: 220px;
+            border-radius: 28px;
+            border: 1px solid rgba(89, 193, 255, 0.4);
+            background: linear-gradient(140deg, rgba(89, 193, 255, 0.3), rgba(37, 62, 107, 0.65));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            color: var(--accent-2);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+        }
+
+        .hero-emblem::before,
+        .hero-emblem::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            filter: blur(1px);
+        }
+
+        .hero-emblem::before {
+            width: 160px;
+            height: 160px;
+            background: rgba(89, 193, 255, 0.25);
+            top: -30px;
+            right: -10px;
+        }
+
+        .hero-emblem::after {
+            width: 100px;
+            height: 100px;
+            background: rgba(126, 241, 200, 0.35);
+            bottom: -20px;
+            left: -15px;
+        }
+
+        .hero-emblem span {
+            position: relative;
+            z-index: 1;
+            font-size: 2.4rem;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.4rem, 6vw, 3.6rem);
+            margin: 0;
+            color: var(--accent);
+        }
+
+        .hero-text p {
+            margin: 0.75rem 0 0;
+            font-size: 1.1rem;
+            color: var(--muted);
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+
+        section {
+            position: relative;
+            background: var(--panel);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 20px 50px rgba(4, 7, 15, 0.7);
+            border: 1px solid rgba(89, 193, 255, 0.2);
+        }
+
+        section h2 {
+            margin-top: 0;
+            color: var(--accent);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        section h2 span {
+            font-size: 1.5rem;
+        }
+
+        .about p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+
+        .chip {
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            background: linear-gradient(120deg, rgba(89, 193, 255, 0.15), rgba(126, 241, 200, 0.15));
+            border: 1px solid rgba(89, 193, 255, 0.25);
+            font-size: 0.95rem;
+        }
+
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .favorite-card {
+            background: rgba(8, 12, 24, 0.85);
+            border-radius: 20px;
+            padding: 1.25rem;
+            border: 1px solid rgba(89, 193, 255, 0.3);
+            box-shadow: inset 0 0 0 1px rgba(89, 193, 255, 0.15);
+        }
+
+        .favorite-card h3 {
+            margin: 0 0 0.5rem;
+            color: var(--accent-2);
+        }
+
+        .favorite-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .project-card {
+            padding: 1.5rem;
+            border-radius: 20px;
+            background: linear-gradient(145deg, rgba(37, 62, 107, 0.85), rgba(26, 34, 63, 0.9));
+            border: 1px solid rgba(89, 193, 255, 0.25);
+        }
+
+        .project-card h3 {
+            margin: 0 0 0.4rem;
+            color: var(--accent);
+        }
+
+        .project-card p {
+            margin: 0;
+            font-size: 0.93rem;
+            color: var(--text);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 640px) {
+            header {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .hero-emblem {
+                width: 180px;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body class="sparkles">
+    <header>
+        <div class="hero-emblem"><span>☄</span></div>
+        <div class="hero-text">
+            <h1>下沙某程序/二次元死宅</h1>
+            <p>普通本科男生 · 二次元死宅 · 爱聊到深夜的互联网人</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="about">
+            <h2><span>✦</span> 关于我</h2>
+            <p>
+                下沙普通本科男生一枚，白天是程序员，晚上是沉浸在番剧里的死宅。偶尔玩玩 COS，大部分时间都在追番、刷设定集。国漫、日漫通吃，热爱热血和搞笑题材，只要有燃点或沙雕桥段就能让我无限循环。
+            </p>
+            <div class="chips">
+                <span class="chip">� 国漫 / 日漫全部追</span>
+                <span class="chip">🔥 热血 & 搞笑最对味</span>
+                <span class="chip">🧥 偶尔 COS，更多时候当观众</span>
+                <span class="chip">� 互联网 25h 在线陪聊</span>
+            </div>
+        </section>
+
+        <section>
+            <h2><span>⚡</span> 爱的番剧 IP</h2>
+            <div class="favorites-grid">
+                <div class="favorite-card">
+                    <h3>最喜欢的系列</h3>
+                    <p>Fate / 石纪元 / 名侦探柯南</p>
+                </div>
+                <div class="favorite-card">
+                    <h3>国创热血</h3>
+                    <p>吞噬星空 / 完美世界 / 超神学院 / 纳米核心</p>
+                </div>
+                <div class="favorite-card">
+                    <h3>题材偏好</h3>
+                    <p>热血、搞笑、科幻冒险，一切热闹又燃的我都来。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2><span>🎮</span> 游戏清单</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>二次元游戏阵容</h3>
+                    <p>崩坏 3 / 崩铁 / 明日方舟 / 原神 / 碧蓝航线。</p>
+                </div>
+                <div class="project-card">
+                    <h3>网游组合技</h3>
+                    <p>王者荣耀 / 金铲铲 / 英雄联盟 / DNF / QQ 飞车 / QQ 炫舞 / 逆战。</p>
+                </div>
+                <div class="project-card">
+                    <h3>半退坑阵地</h3>
+                    <p>三角洲行动、穿越火线，偶尔上线回味。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2><span>∞</span> 性格标签 & 扩列宣言</h2>
+            <p>
+                线上社交无门槛，喜欢聊天，也喜欢逛街吹风。扩列成功就会常驻列表，随时秒回。虽然线下话不多，但这是因为死宅的居住地是互联网。不怕尬聊，只怕你消失，欢迎随时来敲门！
+            </p>
+            <div class="chips">
+                <span class="chip">💬 线上话多、秒回</span>
+                <span class="chip">🚶‍♂️ 喜欢出去逛街散步</span>
+                <span class="chip">🛰️ 喜欢一起讨论任何次元话题</span>
+                <span class="chip">🤝 扩列欢迎，互相陪伴</span>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        「 欢迎扩列，一起追番打游戏 」
+    </footer>
+</body>
+</html>
